@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>render - boxes</title>
+    <style>
+      * {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      nav {
+        background-color: #727070;
+        padding: 10px;
+      }
+
+      button,
+      input {
+        padding: 8px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+      }
+
+      input::placeholder {
+        color: #aaa;
+      }
+      .box{
+        position: relative;
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <input type="number" id="input" placeholder="Enter a number" />
+      <button onclick="generateConnectedBoxes()">Generate</button>
+    </nav>
+  </body>
+
+  <script>
+    function generateConnectedBoxes() {
+
+        // Remove existing boxes
+      var preBoxes = document.querySelectorAll('.box');
+      preBoxes.forEach(function(box) {
+        box.parentNode.removeChild(box);
+      });
+
+        let inpValue = Number(document.getElementById("input").value);
+        console.log(inpValue);
+        console.log(typeof inpValue);
+
+
+
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+
+      let boxHeight = screenHeight/inpValue;
+      let boxWidth = screenWidth/inpValue;
+
+      console.log(boxHeight,boxWidth);
+
+       for (let i = inpValue; i >= 1; i--) {
+                const box = document.createElement('div');
+                box.classList.add('box');
+                box.innerText = i;
+                box.style.color = "white"
+                box.style.height = boxHeight + 'px';
+                box.style.width = boxWidth + 'px';
+                box.style.left = (i-1)*boxWidth + 'px'; 
+                document.body.appendChild(box);
+            }
+    }
+  </script>
+</html>
